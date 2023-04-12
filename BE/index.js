@@ -6,7 +6,7 @@ const { Server } = require("socket.io");
 const port = 8000 || process.env.PORT;
 
 const corsOptions = {
-  origin: ["https://chat-0-rooms.netlify.app"],
+  origin: ["https://main--chat-0-rooms.netlify.app"],
   methods: ["GET", "POST"],
 };
 
@@ -16,14 +16,23 @@ const io = new Server(serve, {
   cors: corsOptions,
 });
 
+// Set the Access-Control-Allow-Origin header to the client's origin
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://main--chat-0-rooms.netlify.app"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  next();
+});
+
 io.on("connection", (socket) => {
-  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+  console.log(socket.id);
 
   socket.on("joinroom", (room) => {
     socket.join(room);
 
     socket.on("newMessage", ({ newmssg, room }) => {
-      // console.log(JSON.stringify(newmssg) + room);
       io.in(room).emit("getmssg", JSON.stringify(newmssg));
     });
   });
