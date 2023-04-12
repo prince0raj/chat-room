@@ -19,7 +19,7 @@ const Chat = () => {
       // console.log(socket.id); // x8WIv7-mJelg7on_ALbx
       socket.emit("joinroom", location.state.room);
     });
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (socket) {
