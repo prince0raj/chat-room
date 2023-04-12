@@ -9,7 +9,10 @@ app.use(cors());
 const serve = http.createServer(app);
 const io = new Server(serve, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: [
+      "https://6436fa7fbe7d6316362b6ac1--chat-0-rooms.netlify.app",
+      "http://localhost:3000",
+    ],
     methods: ["GET", "POST"],
   },
 });
