@@ -5,17 +5,17 @@ const http = require("http");
 const { Server } = require("socket.io");
 const port = 8000 || process.env.PORT;
 
-app.use(cors());
+const corsOptions = {
+  origin: ["https://chat-0-rooms.netlify.app"],
+  methods: ["GET", "POST"],
+};
+
+app.use(cors(corsOptions));
 const serve = http.createServer(app);
 const io = new Server(serve, {
-  cors: {
-    origin: [
-      "https://6436fa7fbe7d6316362b6ac1--chat-0-rooms.netlify.app",
-      "http://localhost:3000",
-    ],
-    methods: ["GET", "POST"],
-  },
+  cors: corsOptions,
 });
+
 io.on("connection", (socket) => {
   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
 
@@ -28,6 +28,7 @@ io.on("connection", (socket) => {
     });
   });
 });
+
 app.get("/", (req, res) => {
   res.send("hello from backend");
 });
