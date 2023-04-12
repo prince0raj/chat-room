@@ -13,10 +13,7 @@ const Chat = () => {
   const [allmessage, setallmessage] = useState([]);
   const [socket, setsocket] = useState();
   useEffect(() => {
-    const socket = io(
-      "https://chat-room-backend-lhbt.onrender.com",
-      "http://localhost:8000"
-    );
+    const socket = io("https://chat-room-backend-lhbt.onrender.com");
     setsocket(socket);
     socket.on("connect", () => {
       // console.log(socket.id); // x8WIv7-mJelg7on_ALbx
